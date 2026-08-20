@@ -1,3 +1,4 @@
+const CHECK_SVG = '<svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5l9-9"/></svg>';
 async function api(url, options) {
   const resp = await fetch(url, options);
   if (!resp.ok) throw new Error(`HTTP ${resp.status}`);
@@ -64,7 +65,7 @@ async function initConfigUI() {
       const cfg = await api("/api/config");
       document.getElementById("cfg-model").value = cfg.model || "deepseek-chat";
       const msg = document.getElementById("cfg-msg");
-      msg.textContent = cfg.configured ? "✅ 猫猫老师已配置，随时可用" : "尚未配置，填好Key后保存即可";
+      msg.innerHTML = cfg.configured ? CHECK_SVG + " 猫猫老师已配置，随时可用" : "尚未配置，填好Key后保存即可";
       msg.style.color = cfg.configured ? "#27ae60" : "#e17055";
     } catch {}
   });
@@ -89,7 +90,7 @@ async function initConfigUI() {
         body: JSON.stringify({ api_key: key, model }),
       });
       if (result.ok) {
-        msg.textContent = "✅ 保存成功！猫猫老师上线了";
+        msg.innerHTML = CHECK_SVG + " 保存成功！猫猫老师上线了";
         msg.style.color = "#27ae60";
         document.getElementById("cfg-key").value = "";
       } else {

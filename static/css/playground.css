@@ -206,3 +206,149 @@
   gap: 10px;
   margin-top: 16px;
 }
+
+/* ===== 猫猫老师内嵌对话（追问区） ===== */
+.pg-chat-msgs {
+  padding: 12px;
+  min-height: 120px;
+  max-height: 260px;
+  overflow-y: auto;
+  background: #f8fafc;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.pg-chat-msg {
+  display: flex;
+  max-width: 92%;
+}
+
+.pg-chat-msg.pg-chat-user {
+  align-self: flex-end;
+}
+
+.pg-chat-msg.pg-chat-ai {
+  align-self: flex-start;
+}
+
+.pg-chat-bubble {
+  padding: 8px 12px;
+  border-radius: 12px;
+  font-size: 0.85rem;
+  line-height: 1.55;
+  word-break: break-word;
+  white-space: pre-wrap;
+}
+
+.pg-chat-user .pg-chat-bubble {
+  background: #3776ab;
+  color: #fff;
+  border-bottom-right-radius: 3px;
+}
+
+.pg-chat-ai .pg-chat-bubble {
+  background: #fff;
+  border: 1px solid #e8ecf1;
+  border-bottom-left-radius: 3px;
+}
+
+.pg-chat-input-row {
+  display: flex;
+  gap: 8px;
+  padding: 10px;
+  border-top: 1px solid #e8ecf1;
+}
+
+.pg-chat-input-row textarea {
+  flex: 1;
+  border: 1px solid #d8dee6;
+  border-radius: 8px;
+  padding: 7px 10px;
+  font-size: 0.85rem;
+  resize: none;
+  outline: none;
+  font-family: inherit;
+  min-height: 34px;
+  max-height: 80px;
+}
+
+.pg-chat-input-row textarea:focus {
+  border-color: #3776ab;
+}
+
+/* AI回复里的 Markdown 元素 */
+.pg-chat-bubble p { margin: 0 0 6px; }
+.pg-chat-bubble p:last-child { margin-bottom: 0; }
+.pg-chat-bubble ul, .pg-chat-bubble ol { margin: 4px 0 6px; padding-left: 20px; }
+.pg-chat-bubble li { margin: 2px 0; }
+.pg-chat-bubble code {
+  background: #eef1f5;
+  border-radius: 4px;
+  padding: 1px 5px;
+  font-size: 12px;
+  font-family: Consolas, Monaco, monospace;
+}
+.pg-chat-bubble pre.code-block {
+  background: #282c34;
+  color: #abb2bf;
+  border-radius: 8px;
+  padding: 10px 12px;
+  overflow-x: auto;
+  margin: 6px 0;
+}
+.pg-chat-bubble pre.code-block code {
+  background: none;
+  color: inherit;
+  padding: 0;
+}
+.pg-chat-bubble strong { font-weight: 600; }
+.pg-chat-bubble blockquote {
+  margin: 4px 0;
+  padding: 2px 10px;
+  border-left: 3px solid #ffd43b;
+  color: #666;
+}
+
+/* 追问区工具按钮 */
+.pg-chat-tools {
+  display: inline-flex;
+  gap: 6px;
+  margin-left: auto;
+}
+
+.pg-chat-tool {
+  border: 1px solid #d8dee6;
+  background: #fff;
+  border-radius: 6px;
+  padding: 2px 8px;
+  font-size: 0.75rem;
+  cursor: pointer;
+  color: #3776ab;
+  transition: background 0.15s;
+}
+
+.pg-chat-tool:hover {
+  background: #eef4fb;
+}
+
+.pg-chat-tool:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.pg-panel .pg-panel-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+/* 通用 SVG 图标 */
+.ico {
+  width: 1em;
+  height: 1em;
+  vertical-align: -0.15em;
+  display: inline-block;
+  flex-shrink: 0;
+}
+.ico-star { color: #f1c40f; }

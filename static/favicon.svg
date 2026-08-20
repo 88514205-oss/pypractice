@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <!-- 猫耳朵 -->
+  <path d="M12 22 L20 4 L30 18 Z" fill="#ffd43b"/>
+  <path d="M52 22 L44 4 L34 18 Z" fill="#ffd43b"/>
+  <!-- 圆角方块背景 -->
+  <rect x="4" y="10" width="56" height="52" rx="13" fill="#3776ab"/>
+  <!-- 底部高光 -->
+  <rect x="4" y="42" width="56" height="20" rx="8" fill="#306998" opacity="0.45"/>
+  <!-- Py 文字 -->
+  <text x="32" y="47" font-family="Arial, Helvetica, sans-serif" font-size="27" font-weight="bold" fill="#ffd43b" text-anchor="middle">Py</text>
+</svg>

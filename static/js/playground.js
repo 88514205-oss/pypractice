@@ -102,12 +102,19 @@ async function runCode() {
 async function review() {
   reviewEl.textContent = "猫猫老师正在看你的代码...";
   try {
+    const code = getCode();
     const resp = await api("/api/ai/review", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ code: getCode(), mode: "free" }),
+      body: JSON.stringify({ code: code, mode: "free" }),
     });
     reviewEl.textContent = resp.reply;
+    // 审查结果写入共享上下文（代码在记忆在）
+    pgSharedHistory.push({ role: "user", content: "请审查我的这段代码：\n" + code });
+    pgSharedHistory.push({ role: "assistant", content: resp.reply });
+    trimShared();
+    saveShared();
+    pgChatRender("assistant", PG_FILE_SVG + " 这次审查已记入上下文，可以继续追问喵~", true);
   } catch (e) {
     reviewEl.textContent = "请求失败: " + e.message;
   }
@@ -193,3 +200,172 @@ restorePlaygroundCode();
 document.addEventListener("DOMContentLoaded", () => {
   initPyodide();
 });
+
+// ===== 猫猫老师内嵌对话（追问区）· 共享上下文版 =====
+const pgChatMsgs = document.getElementById("pg-chat-msgs");
+const pgChatInput = document.getElementById("pg-chat-input");
+const pgChatSend = document.getElementById("pg-chat-send");
+const pgChatClearBtn = document.getElementById("pg-chat-clear");
+const pgChatZipBtn = document.getElementById("pg-chat-zip");
+
+const PG_CHAT_KEY = "pp_playground_chat";
+let pgSharedHistory = [];
+let pgChatBusy = false;
+
+const PG_FILE_SVG = '<svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 3v4a1 1 0 0 0 1 1h4"/><path d="M17 21H7a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h7l5 5v11a2 2 0 0 1-2 2z"/></svg>';
+const PG_TRASH_SVG = '<svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7h16"/><path d="M10 11v6"/><path d="M14 11v6"/><path d="M5 7l1 12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2l1-12"/><path d="M9 7V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v3"/></svg>';
+const PG_ZIP_SVG = '<svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 9l4 0l0-4"/><path d="M4 4l5 5"/><path d="M19 9l-4 0l0-4"/><path d="M20 4l-5 5"/><path d="M5 15l4 0l0 4"/><path d="M4 20l5-5"/><path d="M19 15l-4 0l0 4"/><path d="M20 20l-5-5"/></svg>';
+
+function pgChatEsc(s) {
+  return s.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+}
+
+function pgChatRender(role, text, raw) {
+  const div = document.createElement("div");
+  div.className = "pg-chat-msg " + (role === "user" ? "pg-chat-user" : "pg-chat-ai");
+  div.innerHTML =
+    role === "user"
+      ? '<div class="pg-chat-bubble">' + pgChatEsc(text) + "</div>"
+      : '<div class="pg-chat-bubble">' +
+        (raw ? text : (typeof renderMarkdown === "function" ? renderMarkdown(text) : pgChatEsc(text))) +
+        "</div>";
+  pgChatMsgs.appendChild(div);
+  pgChatMsgs.scrollTop = pgChatMsgs.scrollHeight;
+}
+
+function saveShared() {
+  try { localStorage.setItem(PG_CHAT_KEY, JSON.stringify(pgSharedHistory)); } catch (e) {}
+}
+
+function trimShared() {
+  if (pgSharedHistory.length > 30) pgSharedHistory = pgSharedHistory.slice(-30);
+}
+
+// 恢复历史（仅当编辑器有代码时）
+function restoreShared() {
+  if (!getCode() || !getCode().trim()) { pgSharedHistory = []; return; }
+  try {
+    const saved = JSON.parse(localStorage.getItem(PG_CHAT_KEY) || "[]");
+    pgSharedHistory = Array.isArray(saved) ? saved : [];
+    for (const m of pgSharedHistory) {
+      if (m && typeof m.content === "string") pgChatRender(m.role, m.content);
+    }
+  } catch (e) { pgSharedHistory = []; }
+}
+
+// 代码清空 → 上下文自动清除（代码在记忆在）
+function pgChatAutoClearIfEmpty() {
+  if (!getCode() || !getCode().trim()) {
+    if (pgSharedHistory.length) {
+      pgSharedHistory = [];
+      try { localStorage.removeItem(PG_CHAT_KEY); } catch (e) {}
+      pgChatMsgs.innerHTML = "";
+    }
+  }
+}
+
+// 主动清记忆
+function pgChatClear() {
+  if (!pgSharedHistory.length && !pgChatMsgs.children.length) return;
+  if (!confirm("确定清除猫猫老师的记忆吗？")) return;
+  pgSharedHistory = [];
+  try { localStorage.removeItem(PG_CHAT_KEY); } catch (e) {}
+  pgChatMsgs.innerHTML = "";
+  pgChatRender("assistant", PG_TRASH_SVG + " 记忆已清除，猫猫老师啥都不记得了喵~", true);
+}
+
+// 压缩上下文
+async function pgChatCompress() {
+  if (!pgSharedHistory.length) {
+    pgChatRender("assistant", "还没有可压缩的对话喵~");
+    return;
+  }
+  pgChatZipBtn.disabled = true;
+  const typing = document.createElement("div");
+  typing.className = "pg-chat-msg pg-chat-ai";
+  typing.innerHTML = '<div class="pg-chat-bubble">正在压缩上下文…</div>';
+  pgChatMsgs.appendChild(typing);
+  pgChatMsgs.scrollTop = pgChatMsgs.scrollHeight;
+  try {
+    const resp = await api("/api/chat/compress", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ messages: pgSharedHistory }),
+    });
+    typing.remove();
+    const summary = resp.summary || "（压缩失败）";
+    pgSharedHistory = [{ role: "user", content: "[以下是之前对话的压缩摘要，请基于此继续教学]\n" + summary }];
+    saveShared();
+    pgChatMsgs.innerHTML = "";
+    pgChatRender("assistant", PG_ZIP_SVG + " 已压缩！之前的对话浓缩成一段摘要，省 token 喵~", true);
+    pgChatRender("assistant", "【压缩摘要】\n" + summary);
+  } catch (e) {
+    typing.remove();
+    pgChatRender("assistant", "压缩失败: " + e.message);
+  }
+  pgChatZipBtn.disabled = false;
+}
+
+async function pgChatSendMsg() {
+  const text = pgChatInput.value.trim();
+  if (!text || pgChatBusy) return;
+  pgChatInput.value = "";
+  pgChatRender("user", text);
+  pgSharedHistory.push({ role: "user", content: text });
+
+  pgChatBusy = true;
+  pgChatSend.disabled = true;
+
+  const typing = document.createElement("div");
+  typing.className = "pg-chat-msg pg-chat-ai";
+  typing.innerHTML = '<div class="pg-chat-bubble">猫猫思考中…</div>';
+  pgChatMsgs.appendChild(typing);
+  pgChatMsgs.scrollTop = pgChatMsgs.scrollHeight;
+
+  try {
+    const resp = await api("/api/chat", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ messages: pgSharedHistory, context: getCode() }),
+    });
+    typing.remove();
+    pgSharedHistory.push({ role: "assistant", content: resp.reply });
+    trimShared();
+    saveShared();
+    pgChatRender("assistant", resp.reply);
+  } catch (e) {
+    typing.remove();
+    pgChatRender("assistant", "请求失败: " + e.message);
+  }
+
+  pgChatBusy = false;
+  pgChatSend.disabled = false;
+  pgChatInput.focus();
+}
+
+pgChatSend.addEventListener("click", pgChatSendMsg);
+if (pgChatClearBtn) pgChatClearBtn.addEventListener("click", pgChatClear);
+if (pgChatZipBtn) pgChatZipBtn.addEventListener("click", pgChatCompress);
+pgChatInput.addEventListener("keydown", function (e) {
+  if (e.key === "Enter" && !e.shiftKey) {
+    e.preventDefault();
+    pgChatSendMsg();
+  }
+});
+pgChatInput.addEventListener("input", function () {
+  pgChatInput.style.height = "auto";
+  pgChatInput.style.height = Math.min(pgChatInput.scrollHeight, 80) + "px";
+});
+
+// 编辑器变化时：代码清空 → 自动清上下文
+function pgChatWatchCode() {
+  if (pgEditor) {
+    pgEditor.on("change", pgChatAutoClearIfEmpty);
+  } else {
+    pgEditorEl.addEventListener("input", pgChatAutoClearIfEmpty);
+  }
+}
+
+// 初始化：代码在→恢复记忆；代码空→无记忆
+pgChatWatchCode();
+restoreShared();

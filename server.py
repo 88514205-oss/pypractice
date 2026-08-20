@@ -244,6 +244,140 @@ def ask_deepseek(messages):
         return f"[AI请求失败: {e}]"
 
 
+def web_search(query, max_results=5):
+    try:
+        resp = httpx.get(
+            "https://html.duckduckgo.com/html/",
+            params={"q": query},
+            timeout=20,
+            headers={"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64)"},
+        )
+        resp.raise_for_status()
+        results = []
+        for m in re.finditer(r'<a[^>]+class="result__a"[^>]+href="([^"]+)"[^>]*>(.*?)</a>', resp.text, re.S):
+            url = m.group(1)
+            title = re.sub(r"<[^>]+>", "", m.group(2)).strip()
+            if "uddg=" in url:
+                from urllib.parse import urlparse, parse_qs, unquote
+                q = parse_qs(urlparse(url).query)
+                if "uddg" in q:
+                    url = unquote(q["uddg"][0])
+            results.append({"title": title, "url": url})
+            if len(results) >= max_results:
+                break
+        return {"results": results} if results else {"results": [], "note": "没有搜到结果"}
+    except Exception as e:
+        return {"error": str(e)}
+
+
+def fetch_url_text(url):
+    try:
+        resp = httpx.get(
+            url,
+            timeout=20,
+            headers={
+                "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64)",
+                "Accept-Language": "zh-CN,zh;q=0.9,en;q=0.8",
+            },
+        )
+        resp.raise_for_status()
+        html = resp.text
+        html = re.sub(r"<(script|style)[^>]*>.*?</\1>", "", html, flags=re.S)
+        text = re.sub(r"<[^>]+>", " ", html)
+        text = re.sub(r"\s+", " ", text).strip()
+        return {"url": url, "text": text[:4000]}
+    except Exception as e:
+        return {"error": str(e), "url": url}
+
+
+def execute_tool(name, args):
+    if name == "search_web":
+        return web_search(str(args.get("query", "")), int(args.get("max_results", 5) or 5))
+    if name == "fetch_url":
+        return fetch_url_text(str(args.get("url", "")))
+    return {"error": f"未知工具: {name}"}
+
+
+TOOLS = [
+    {
+        "type": "function",
+        "function": {
+            "name": "search_web",
+            "description": (
+                "搜索互联网上的技术文档与资料（Python官方文档、教程、博客等），"
+                "返回相关网页的标题和链接。当需要查证知识点、查找官方文档、"
+                "或用户的问题较新/较偏/超出已有知识时使用。"
+            ),
+            "parameters": {
+                "type": "object",
+                "properties": {
+                    "query": {"type": "string", "description": "搜索关键词，例如 'python 列表 append 文档'"}
+                },
+                "required": ["query"],
+            },
+        },
+    },
+    {
+        "type": "function",
+        "function": {
+            "name": "fetch_url",
+            "description": (
+                "获取指定网页的正文内容（截取前4000字符），用于阅读文档细节。"
+                "搜索到相关链接后，用此工具打开阅读并引用。"
+            ),
+            "parameters": {
+                "type": "object",
+                "properties": {
+                    "url": {"type": "string", "description": "要阅读的网页URL"}
+                },
+                "required": ["url"],
+            },
+        },
+    },
+]
+
+
+def ask_deepseek_tools(messages, tools, max_rounds=4):
+    key, base_url, model = get_ai_config()
+    if not key or key.startswith("sk-在这里"):
+        return None
+    msgs = list(messages)
+    try:
+        with httpx.Client(timeout=60) as client:
+            for _ in range(max_rounds):
+                payload = {"model": model, "messages": msgs, "temperature": 0.7, "tools": tools}
+                resp = client.post(
+                    f"{base_url}/chat/completions",
+                    headers={"Authorization": f"Bearer {key}"},
+                    json=payload,
+                )
+                resp.raise_for_status()
+                data = resp.json()
+                msg = data["choices"][0]["message"]
+                if msg.get("tool_calls"):
+                    msgs.append(msg)
+                    for tc in msg["tool_calls"]:
+                        fn = tc.get("function", {})
+                        name = fn.get("name", "")
+                        try:
+                            args = json.loads(fn.get("arguments") or "{}")
+                        except Exception:
+                            args = {}
+                        result = execute_tool(name, args)
+                        msgs.append(
+                            {
+                                "role": "tool",
+                                "tool_call_id": tc.get("id", ""),
+                                "content": json.dumps(result, ensure_ascii=False),
+                            }
+                        )
+                    continue
+                return msg.get("content")
+            return "[AI: 工具调用轮次用尽]"
+    except Exception as e:
+        return f"[AI请求失败: {e}]"
+
+
 @app.post("/api/ai/ask")
 async def ai_ask(request: Request):
     body = await request.json()
@@ -260,7 +394,7 @@ async def ai_ask(request: Request):
 
     messages = [
         {"role": "system", "content": (
-            "你是一个叫猫猫的Python学习导师，毒舌但教学认真。"
+            "你是一个叫猫猫的Python学习导师，毒舌但教学认真，'喵'偶尔点缀即可，教学效率优先。"
             "教学原则：不直接给完整答案，用反问和提示引导学习者自己思考。"
             "可以给思路关键词、小例子、常见坑的提示，但不要把完整解法代码一次写完。"
             "如果学习者明确表示已经写完了想对比参考，才给出参考解法。"
@@ -312,6 +446,67 @@ async def ai_review(request: Request):
     if reply is None:
         return {"reply": "AI未配置：请在 config.json 里填 DeepSeek API Key（参考 config.example.json）"}
     return {"reply": reply}
+
+
+@app.post("/api/chat")
+async def api_chat(request: Request):
+    body = await request.json()
+    messages = body.get("messages", [])
+    context = body.get("context", "")
+    if not messages:
+        return {"reply": "说点什么吧~"}
+    sys_prompt = {
+        "role": "system",
+        "content": (
+            "你是猫猫，一个Python学习导师，教学效率第一：回答直接清晰、切中要害，"
+            "把知识讲明白为主。'喵'偶尔点缀即可，不要过度卖萌、不要堆砌语气词，"
+            "不要因为人设耽误回答效率。"
+            "引导式教学：优先让学习者自己思考，给思路和小提示；"
+            "但如果学习者明确要答案、卡住了或直接问解法，就给出清晰完整的解答和示例代码。"
+            "教学原则：不直接给完整答案，用反问和提示引导学习者自己思考。"
+            "可以给思路关键词、小例子、常见坑的提示，但不要把完整解法代码一次写完。"
+            "如果学习者明确表示想对比参考，才给出参考解法。"
+            "回答要简洁，控制在300字以内。"
+            "【联网能力】你可以调用 search_web 搜索互联网文档（Python官方文档/教程/博客），"
+            "并用 fetch_url 阅读文档正文。当知识点需要确认、用户问得较偏、或需要最新资料时，"
+            "先搜索再回答，并在回答末尾附上参考链接（格式：参考: 标题 - URL）。"
+        ),
+    }
+    if context:
+        sys_prompt["content"] += "\n用户当前正在写的代码（提问时参考，不要逐行复述）：\n" + context
+    full = [sys_prompt] + messages[-20:]
+    reply = ask_deepseek_tools(full, TOOLS)
+    if reply is None:
+        return {"reply": "AI未配置：请在首页底部点「AI配置」填 DeepSeek API Key（参考 config.example.json）"}
+    return {"reply": reply}
+
+
+
+@app.post("/api/chat/compress")
+async def api_chat_compress(request: Request):
+    body = await request.json()
+    messages = body.get("messages", [])
+    if not messages:
+        return {"summary": ""}
+    sys_prompt = {
+        "role": "system",
+        "content": (
+            "你是一个对话压缩器。把用户提供的对话记录压缩成一段简洁摘要，"
+            "保留关键信息：学到的知识点、讨论过的代码问题、猫猫老师给过的提示和结论。"
+            "用中文，200字以内，直接输出摘要内容，不要任何前缀。"
+        ),
+    }
+    reply = ask_deepseek([sys_prompt] + messages[-30:])
+    if reply is None:
+        return {"summary": "AI未配置，无法压缩"}
+    return {"summary": reply}
+
+
+@app.middleware("http")
+async def no_cache_all(request: Request, call_next):
+    response = await call_next(request)
+    response.headers["Cache-Control"] = "no-cache, no-store, must-revalidate"
+    return response
 
 
 app.mount("/static", StaticFiles(directory=str(STATIC_DIR)), name="static")
