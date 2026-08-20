@@ -1,0 +1,74 @@
+[
+  {
+    "id": 1,
+    "title": "成绩评级",
+    "description": "分数 score = 85，如果大于等于90打印\"优秀\"，大于等于60打印\"及格\"，否则打印\"不及格\"。",
+    "difficulty": 1,
+    "hint": "if/elif/else 结构",
+    "starter_code": "score = 85\n",
+    "expected_output": "及格"
+  },
+  {
+    "id": 2,
+    "title": "奇偶判断",
+    "description": "数字 n = 7，判断并打印\"奇数\"或\"偶数\"。用 % 取余判断。",
+    "difficulty": 1,
+    "hint": "n % 2 == 0 是偶数",
+    "starter_code": "n = 7\n",
+    "expected_output": "奇数"
+  },
+  {
+    "id": 3,
+    "title": "累加求和",
+    "description": "用 for 循环计算 1 加到 100 的总和，打印结果。",
+    "difficulty": 2,
+    "hint": "total = 0; for i in range(1, 101): total += i",
+    "starter_code": "# 在这里写你的代码\n",
+    "expected_output": "5050"
+  },
+  {
+    "id": 4,
+    "title": "遍历列表打印",
+    "description": "列表 colors = ['红', '绿', '蓝']，用 for 循环逐个打印每个颜色，格式：颜色: xxx",
+    "difficulty": 1,
+    "hint": "for c in colors: print(f\"颜色: {c}\")",
+    "starter_code": "colors = ['红', '绿', '蓝']\n",
+    "expected_output": "颜色: 红\n颜色: 绿\n颜色: 蓝"
+  },
+  {
+    "id": 5,
+    "title": "break跳出",
+    "description": "for 循环 range(10)，当 i 等于 4 时用 break 跳出，打印 0到3。",
+    "difficulty": 2,
+    "hint": "if i == 4: break",
+    "starter_code": "# 在这里写你的代码\n",
+    "expected_output": "0\n1\n2\n3"
+  },
+  {
+    "id": 6,
+    "title": "continue跳过",
+    "description": "for 循环 range(6)，跳过 i == 3，打印 0,1,2,4,5。",
+    "difficulty": 2,
+    "hint": "if i == 3: continue",
+    "starter_code": "# 在这里写你的代码\n",
+    "expected_output": "0\n1\n2\n4\n5"
+  },
+  {
+    "id": 7,
+    "title": "while倒计时",
+    "description": "用 while 循环从 3 倒计时到 1，每行打印一个数字，循环结束后打印\"发射！\"。",
+    "difficulty": 2,
+    "hint": "count = 3; while count > 0: print(count); count -= 1",
+    "starter_code": "# 在这里写你的代码\n",
+    "expected_output": "3\n2\n1\n发射！"
+  },
+  {
+    "id": 8,
+    "title": "列表推导式",
+    "description": "用列表推导式生成 0到9 的平方列表并打印。",
+    "difficulty": 3,
+    "hint": "[i*i for i in range(10)]",
+    "starter_code": "# 在这里写你的代码\n",
+    "expected_output": "[0, 1, 4, 9, 16, 25, 36, 49, 64, 81]"
+  }
+]

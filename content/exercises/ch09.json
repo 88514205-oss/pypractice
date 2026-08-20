@@ -1,0 +1,65 @@
+[
+  {
+    "id": 1,
+    "title": "GET请求",
+    "description": "用 requests.get 请求 https://httpbin.org/get ，打印 resp.status_code。",
+    "difficulty": 1,
+    "hint": "import requests; resp = requests.get(...)",
+    "starter_code": "import requests\n",
+    "expected_output": "200"
+  },
+  {
+    "id": 2,
+    "title": "解析JSON响应",
+    "description": "GET https://httpbin.org/json ，用 resp.json() 解析，打印返回字典中键 slideshow 的 title 字段。",
+    "difficulty": 2,
+    "hint": "data = resp.json(); print(data['slideshow']['title'])",
+    "starter_code": "import requests\n",
+    "expected_output": "Sample Slide Show"
+  },
+  {
+    "id": 3,
+    "title": "POST JSON",
+    "description": "POST 到 https://httpbin.org/post ，json 参数传 {'name': '白糖'}，打印响应里 json.name 的值。",
+    "difficulty": 2,
+    "hint": "resp = requests.post(url, json={'name': '白糖'}); resp.json()['json']['name']",
+    "starter_code": "import requests\n",
+    "expected_output": "白糖"
+  },
+  {
+    "id": 4,
+    "title": "查询参数",
+    "description": "GET https://httpbin.org/get 带 params={'page': 2}，打印 resp.json()['args']。",
+    "difficulty": 2,
+    "hint": "resp = requests.get(url, params={'page': 2}); resp.json()['args']",
+    "starter_code": "import requests\n",
+    "expected_output": "{'page': '2'}"
+  },
+  {
+    "id": 5,
+    "title": "状态码判断",
+    "description": "GET https://httpbin.org/status/404 ，判断 status_code 是否等于404，打印\"页面不存在\"或\"页面正常\"。",
+    "difficulty": 1,
+    "hint": "if resp.status_code == 404:",
+    "starter_code": "import requests\n",
+    "expected_output": "页面不存在"
+  },
+  {
+    "id": 6,
+    "title": "超时处理",
+    "description": "GET https://httpbin.org/delay/5 设置 timeout=2，用 try/except 捕获 requests.Timeout 打印\"请求超时\"。",
+    "difficulty": 3,
+    "hint": "except requests.Timeout:",
+    "starter_code": "import requests\n",
+    "expected_output": "请求超时"
+  },
+  {
+    "id": 7,
+    "title": "请求头",
+    "description": "GET https://httpbin.org/headers 带 headers={'User-Agent': 'GIL老师'}，打印响应中 headers 里的 User-Agent。",
+    "difficulty": 2,
+    "hint": "resp.json()['headers']['User-Agent']",
+    "starter_code": "import requests\n",
+    "expected_output": "GIL老师"
+  }
+]

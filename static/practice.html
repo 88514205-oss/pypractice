@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+ <meta charset="UTF-8">
+ <meta name="viewport" content="width=device-width, initial-scale=1.0">
+ <title>练习 - Python从print到GIL锁死</title>
+ <link rel="stylesheet" href="/static/css/style.css">
+ <link rel="stylesheet" href="/static/css/practice.css">
+ <link rel="stylesheet" href="/static/vendor/codemirror/codemirror.min.css">
+ <link rel="stylesheet" href="/static/vendor/codemirror/dracula.min.css">
+  <link rel="stylesheet" href="/static/vendor/codemirror/lint.min.css">
+</head>
+<body>
+ <header class="top-bar">
+  <div class="container">
+   <a class="back-link" href="#" id="back-link"> 返回章节</a>
+   <span class="top-title" id="exercise-title">加载中...</span>
+  </div>
+ </header>
+
+ <main class="container practice-layout">
+  <section class="exercise-panel">
+   <div class="exercise-desc" id="exercise-desc">加载中...</div>
+   <div class="hint-box" id="hint-box" style="display:none"></div>
+   <div class="output-box">
+    <div class="output-header">
+     <span>运行输出</span>
+     <button class="btn btn-run" id="btn-run" disabled>运行 (Python)</button>
+    </div>
+    <pre class="output" id="output">// 点击"运行"查看结果，首次运行需加载Python环境(约10秒)</pre>
+   </div>
+   <div class="ai-box" id="ai-box">
+    <div class="ai-header">
+     <span>猫猫老师</span>
+     <button class="btn btn-ai" id="btn-ai-help">卡住了，求提示</button>
+     <button class="btn btn-ai" id="btn-ai-review">写完了，求点评</button>
+    </div>
+    <div class="ai-reply" id="ai-reply">做题流程：自己写 → 运行测试 → 卡住了问提示 → 写完了求点评。</div>
+   </div>
+  </section>
+
+  <section class="editor-panel">
+   <textarea id="code-editor" spellcheck="false"># 在这里写你的代码
+</textarea>
+   <div class="editor-footer">
+    <span id="editor-status">就绪</span>
+    <button class="btn btn-save" id="btn-save-code">存档</button>
+    <button class="btn" id="btn-list-saves">我的存档</button>
+    <button class="btn btn-primary" id="btn-mark-done">标记完成</button>
+   </div>
+  </section>
+  <div class="modal-mask" id="saves-modal" style="display:none">
+    <div class="modal">
+      <h2>我的存档</h2>
+      <p class="modal-tip">手动保存的代码（最多保留30条），关闭页面不丢失</p>
+      <div id="saves-list" class="saves-list"></div>
+      <div class="modal-actions">
+        <button class="btn" id="btn-saves-close">关闭</button>
+        <button class="btn btn-danger" id="btn-saves-clear">清空全部</button>
+      </div>
+    </div>
+  </div>
+ </main>
+
+ <script src="/static/vendor/codemirror/codemirror.min.js"></script>
+ <script src="/static/vendor/codemirror/python.min.js"></script>
+ <script src="/static/vendor/codemirror/matchbrackets.min.js"></script>
+ <script src="/static/vendor/codemirror/closebrackets.min.js"></script>
+  <script src="/static/vendor/codemirror/lint.min.js"></script>
+  <script src="/static/js/codekit.js"></script>
+  <script src="/static/pyodide/pyodide.js"></script>
+ <script src="/static/js/practice.js"></script>
+</body>
+</html>

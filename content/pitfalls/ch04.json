@@ -1,0 +1,37 @@
+[
+  {
+    "title": "忘记return",
+    "code": "def add(a, b):\n    result = a + b  # 忘了return",
+    "error": "调用 add(3,5) 返回 None",
+    "reason": "没有 return 的函数返回 None。想要结果必须写 return。",
+    "fix": "return result"
+  },
+  {
+    "title": "定义函数后忘了调用",
+    "code": "def greet():\n    print(\"hi\")\n# 忘写 greet()",
+    "error": "什么都没打印",
+    "reason": "定义函数只是\"打包\"，不调用就不会执行。函数体外的代码才在import时执行。",
+    "fix": "记得调用 greet()"
+  },
+  {
+    "title": "函数名拼错",
+    "code": "def greet(): ...\nprint(grett())",
+    "error": "NameError: name 'grett' is not defined",
+    "reason": "函数名打错一个字母，Python找不到这个名字。仔细检查拼写。",
+    "fix": "print(greet())"
+  },
+  {
+    "title": "参数数量不对",
+    "code": "def add(a, b): return a + b\nprint(add(3))",
+    "error": "TypeError: add() missing 1 required positional argument: 'b'",
+    "reason": "函数定义了两个参数，调用只传了一个。要么补参数，要么给参数设默认值。",
+    "fix": "print(add(3, 5))"
+  },
+  {
+    "title": "参数顺序搞反",
+    "code": "def info(name, age):\n    print(f\"{name}今年{age}岁\")\ninfo(16, \"白糖\")",
+    "error": "打印：16今年白糖岁",
+    "reason": "位置参数按顺序传。第一个参数传给name，第二个传给age。想不按顺序就用关键字参数 info(age=16, name=\"白糖\")。",
+    "fix": "info(\"白糖\", 16)"
+  }
+]

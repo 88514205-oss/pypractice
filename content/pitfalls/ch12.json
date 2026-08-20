@@ -1,0 +1,37 @@
+[
+  {
+    "title": "忘记启动虚拟环境",
+    "code": "pip install -r requirements.txt  # 装到全局",
+    "error": "版本冲突，污染全局环境",
+    "reason": "项目依赖应该装进venv：先 source venv/bin/activate 再 pip install。",
+    "fix": "python3 -m venv venv && source venv/bin/activate"
+  },
+  {
+    "title": "没加--host 0.0.0.0",
+    "code": "uvicorn main:app",
+    "error": "外网访问不了",
+    "reason": "默认只监听127.0.0.1，容器/云服务器里必须 --host 0.0.0.0。",
+    "fix": "uvicorn main:app --host 0.0.0.0 --port 8000"
+  },
+  {
+    "title": "防火墙没放行端口",
+    "code": "服务起了但连不上",
+    "error": "Connection refused",
+    "reason": "云服务器安全组/防火墙要放行端口。这是部署最常见的坑。",
+    "fix": "控制台安全组加规则 或 ufw allow 8000"
+  },
+  {
+    "title": "Docker构建忘复制文件",
+    "code": "COPY requirements.txt .\n# 忘写 COPY . .",
+    "error": "容器里没有应用代码",
+    "reason": "Dockerfile 里 COPY . . 把代码拷进镜像，漏了的话容器里啥也没有。",
+    "fix": "加上 COPY . ."
+  },
+  {
+    "title": "代码写死配置",
+    "code": "api_key = \"sk-xxx\"  # 写死在代码里",
+    "error": "上传GitHub后密钥泄露",
+    "reason": "密钥用环境变量或配置文件，绝不写死在代码里。用 os.environ.get(\"API_KEY\")。",
+    "fix": "os.environ.get(\"API_KEY\")"
+  }
+]

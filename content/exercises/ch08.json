@@ -1,0 +1,56 @@
+[
+  {
+    "id": 1,
+    "title": "猜数字（简化版）",
+    "description": "secret = 42（写死），循环让用户输入猜的数字，太大打印\"太大\"，太小打印\"太小\"，猜中打印\"猜中了\"并结束循环。",
+    "difficulty": 2,
+    "hint": "while True + input + break",
+    "starter_code": "secret = 42\n",
+    "expected_output": "根据输入输出提示"
+  },
+  {
+    "id": 2,
+    "title": "通讯录（简化版）",
+    "description": "contacts = {}，给 contacts 添加两个联系人：'白糖' -> '10001'，'红糖' -> '10002'，然后用 for 循环打印出所有联系人和电话。",
+    "difficulty": 2,
+    "hint": "for name, phone in contacts.items()",
+    "starter_code": "contacts = {}\n",
+    "expected_output": "白糖: 10001\n红糖: 10002"
+  },
+  {
+    "id": 3,
+    "title": "记账本（简化版）",
+    "description": "records = [{'item': '早饭', 'amount': 12}, {'item': '午饭', 'amount': 25}]，用列表推导式计算总金额并打印。",
+    "difficulty": 2,
+    "hint": "sum(r['amount'] for r in records)",
+    "starter_code": "records = [{'item': '早饭', 'amount': 12}, {'item': '午饭', 'amount': 25}]\n",
+    "expected_output": "37"
+  },
+  {
+    "id": 4,
+    "title": "待办清单（简化版）",
+    "description": "todos = ['学Python', '写作业', '打游戏']，用 enumerate 遍历并打印编号和任务，格式：1. 学Python",
+    "difficulty": 2,
+    "hint": "for i, t in enumerate(todos, 1): print(f\"{i}. {t}\")",
+    "starter_code": "todos = ['学Python', '写作业', '打游戏']\n",
+    "expected_output": "1. 学Python\n2. 写作业\n3. 打游戏"
+  },
+  {
+    "id": 5,
+    "title": "统计单词长度",
+    "description": "words = ['python', 'docker', 'linux', 'ai']，用列表推导式生成每个单词长度的列表，打印结果。",
+    "difficulty": 3,
+    "hint": "[len(w) for w in words]",
+    "starter_code": "words = ['python', 'docker', 'linux', 'ai']\n",
+    "expected_output": "[6, 6, 5, 2]"
+  },
+  {
+    "id": 6,
+    "title": "筛选及格成绩",
+    "description": "scores = [45, 89, 72, 55, 98, 30]，用列表推导式筛选出 >= 60 的成绩，打印结果。",
+    "difficulty": 2,
+    "hint": "[s for s in scores if s >= 60]",
+    "starter_code": "scores = [45, 89, 72, 55, 98, 30]\n",
+    "expected_output": "[89, 72, 98]"
+  }
+]

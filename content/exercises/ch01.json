@@ -1,0 +1,65 @@
+[
+  {
+    "id": 1,
+    "title": "第一次打招呼",
+    "description": "使用 print() 输出一行文字：你好，Python",
+    "difficulty": 1,
+    "hint": "print(\"你好，Python\")",
+    "starter_code": "# 在这里写你的代码\n",
+    "expected_output": "你好，Python"
+  },
+  {
+    "id": 2,
+    "title": "打印数字",
+    "description": "使用 print() 输出 3 + 5 的计算结果",
+    "difficulty": 1,
+    "hint": "直接把算式放进 print 的括号里",
+    "starter_code": "# 在这里写你的代码\n",
+    "expected_output": "8"
+  },
+  {
+    "id": 3,
+    "title": "我的变量",
+    "description": "定义一个变量 name，值为\"白糖\"；再定义一个变量 age，值为 16。然后分别打印这两个变量。",
+    "difficulty": 1,
+    "hint": "name = \"白糖\" 然后 print(name)",
+    "starter_code": "# 在这里写你的代码\n",
+    "expected_output": "白糖\n16"
+  },
+  {
+    "id": 4,
+    "title": "类型侦探",
+    "description": "打印 type(3.14) 的结果，看看浮点数是什么类型。",
+    "difficulty": 1,
+    "hint": "print(type(3.14))",
+    "starter_code": "# 在这里写你的代码\n",
+    "expected_output": "<class 'float'>"
+  },
+  {
+    "id": 5,
+    "title": "f-string 打招呼",
+    "description": "定义一个变量 name = \"Python\"，用 f-string 打印：你好，Python，欢迎来到编程世界",
+    "difficulty": 2,
+    "hint": "print(f\"你好，{name}，欢迎来到编程世界\")",
+    "starter_code": "# 在这里写你的代码\n",
+    "expected_output": "你好，Python，欢迎来到编程世界"
+  },
+  {
+    "id": 6,
+    "title": "多值打印",
+    "description": "用一次 print() 打印三个值：1、\"个\"、\"苹果\"，用逗号隔开。观察输出里逗号变成了什么。",
+    "difficulty": 2,
+    "hint": "print(1, \"个\", \"苹果\")",
+    "starter_code": "# 在这里写你的代码\n",
+    "expected_output": "1 个 苹果"
+  },
+  {
+    "id": 7,
+    "title": "转字符串",
+    "description": "把数字 3 转成字符串后和\"号选手\"拼接，打印结果：3号选手",
+    "difficulty": 2,
+    "hint": "str(3) + \"号选手\"",
+    "starter_code": "# 在这里写你的代码\n",
+    "expected_output": "3号选手"
+  }
+]

@@ -1,0 +1,74 @@
+[
+  {
+    "id": 1,
+    "title": "创建水果列表",
+    "description": "创建一个列表 fruits，包含三个元素：苹果、香蕉、橙子。然后打印第二个元素。",
+    "difficulty": 1,
+    "hint": "fruits[1] 是第二个元素（下标从0开始）",
+    "starter_code": "# 在这里写你的代码\n",
+    "expected_output": "香蕉"
+  },
+  {
+    "id": 2,
+    "title": "列表操作",
+    "description": "创建一个空列表 nums，依次 append 数字 1、2、3，再打印列表的长度和最后一个元素。",
+    "difficulty": 1,
+    "hint": "len(nums) 和 nums[-1]",
+    "starter_code": "# 在这里写你的代码\n",
+    "expected_output": "3\n3"
+  },
+  {
+    "id": 3,
+    "title": "字典增改查",
+    "description": "创建字典 person = {'name': '白糖', 'age': 16}，把 age 改成 17，新增键 'city' 值为 '上海'，然后打印 person。",
+    "difficulty": 2,
+    "hint": "person['age'] = 17 然后 person['city'] = '上海'",
+    "starter_code": "# 在这里写你的代码\n",
+    "expected_output": "{'name': '白糖', 'age': 17, 'city': '上海'}"
+  },
+  {
+    "id": 4,
+    "title": "元组解包",
+    "description": "定义元组 point = (10, 20)，用解包把两个值分别赋给 x 和 y，然后打印 x + y 的结果。",
+    "difficulty": 2,
+    "hint": "x, y = point",
+    "starter_code": "# 在这里写你的代码\n",
+    "expected_output": "30"
+  },
+  {
+    "id": 5,
+    "title": "集合去重",
+    "description": "把列表 [1, 2, 2, 3, 3, 3, 4] 转成集合，打印集合的长度。",
+    "difficulty": 2,
+    "hint": "set([1,2,2,3,3,3,4]) 然后 len()",
+    "starter_code": "# 在这里写你的代码\n",
+    "expected_output": "4"
+  },
+  {
+    "id": 6,
+    "title": "字符串切分",
+    "description": "字符串 s = '苹果,香蕉,橙子,西瓜'，用 split(',') 切分成列表并打印。",
+    "difficulty": 1,
+    "hint": "s.split(',')",
+    "starter_code": "s = '苹果,香蕉,橙子,西瓜'\n",
+    "expected_output": "['苹果', '香蕉', '橙子', '西瓜']"
+  },
+  {
+    "id": 7,
+    "title": "遍历字典",
+    "description": "字典 scores = {'语文': 90, '数学': 95, '英语': 88}，用 for 循环遍历 items()，打印每一行：科目: 分数",
+    "difficulty": 2,
+    "hint": "for subject, score in scores.items(): print(f\"{subject}: {score}\")",
+    "starter_code": "scores = {'语文': 90, '数学': 95, '英语': 88}\n",
+    "expected_output": "语文: 90\n数学: 95\n英语: 88"
+  },
+  {
+    "id": 8,
+    "title": "字符串替换",
+    "description": "s = 'I love Python'，把 Python 替换成 coding，再把结果转成大写，打印最终结果。",
+    "difficulty": 2,
+    "hint": "s.replace('Python', 'coding').upper()",
+    "starter_code": "s = 'I love Python'\n",
+    "expected_output": "I LOVE CODING"
+  }
+]

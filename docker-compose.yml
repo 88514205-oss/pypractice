@@ -1,0 +1,10 @@
+services:
+  pypractice:
+    build: .
+    container_name: pypractice
+    ports:
+      - "8899:8899"
+    volumes:
+      - ./data:/app/data
+      - ./config.json:/app/config.json
+    restart: unless-stopped

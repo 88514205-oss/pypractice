@@ -1,0 +1,37 @@
+[
+  {
+    "title": "下标从0开始",
+    "code": "fruits = [\"苹果\", \"香蕉\"]\nprint(fruits[1])",
+    "error": "打印的是\"香蕉\"而不是\"苹果\"",
+    "reason": "列表下标从0开始，fruits[0]才是第一个元素。这是新手最常见的困惑之一。",
+    "fix": "print(fruits[0])"
+  },
+  {
+    "title": "访问不存在的键",
+    "code": "person = {\"name\": \"白糖\"}\nprint(person[\"age\"])",
+    "error": "KeyError: 'age'",
+    "reason": "字典访问不存在的键会直接报错，可以先判断 \"age\" in person 或用 person.get(\"age\", 默认值)。",
+    "fix": "print(person.get(\"age\", 0))"
+  },
+  {
+    "title": "尝试修改元组",
+    "code": "point = (1, 2)\npoint[0] = 99",
+    "error": "TypeError: 'tuple' object does not support item assignment",
+    "reason": "元组是不可变类型，创建后不能修改。想修改数据就用列表。",
+    "fix": "point = [1, 2]"
+  },
+  {
+    "title": "忘记变量名的引号",
+    "code": "person = {\"name\": \"白糖\"}\nprint(person[name])",
+    "error": "NameError: name 'name' is not defined",
+    "reason": "字典的键是字符串时要加引号：person[\"name\"]，否则Python会把name当成变量去找。",
+    "fix": "print(person[\"name\"])"
+  },
+  {
+    "title": "混淆列表和字典语法",
+    "code": "person = [\"name\": \"白糖\"]",
+    "error": "SyntaxError: invalid syntax",
+    "reason": "键值对要用花括号 {}，方括号 [] 是列表（只能放值不能放键值对）。",
+    "fix": "person = {\"name\": \"白糖\"}"
+  }
+]

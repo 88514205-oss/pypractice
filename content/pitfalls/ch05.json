@@ -1,0 +1,37 @@
+[
+  {
+    "title": "忘记encoding参数",
+    "code": "with open(\"data.txt\", \"r\") as f:",
+    "error": "UnicodeDecodeError 或乱码",
+    "reason": "不指定 encoding 时默认按系统编码读，中文文件经常乱码或报错。读写文本文件务必加 encoding=\"utf-8\"。",
+    "fix": "with open(\"data.txt\", \"r\", encoding=\"utf-8\") as f:"
+  },
+  {
+    "title": "文件打开失败没处理",
+    "code": "f = open(\"nofile.txt\", \"r\")",
+    "error": "FileNotFoundError",
+    "reason": "文件不存在时直接报错。要么先判断 os.path.exists()，要么用 try/except。",
+    "fix": "try: f = open(...) except FileNotFoundError:"
+  },
+  {
+    "title": "忘了close",
+    "code": "f = open(\"data.txt\", \"r\")\ndata = f.read()  # 忘了f.close()",
+    "error": "文件句柄泄漏（打开太多会报错）",
+    "reason": "忘记关闭文件会占用系统资源。用 with open(...) 自动关闭是最佳实践。",
+    "fix": "with open(\"data.txt\", \"r\") as f: data = f.read()"
+  },
+  {
+    "title": "写模式覆盖了旧文件",
+    "code": "with open(\"data.txt\", \"w\") as f:",
+    "error": "旧内容全没了",
+    "reason": "\"w\" 模式打开就会清空文件！想保留原内容用 \"a\" 追加。",
+    "fix": "确认用 \"a\" 还是先备份"
+  },
+  {
+    "title": "空except吞掉所有错误",
+    "code": "try:\n    risky()\nexcept:\n    pass",
+    "error": "程序出问题但完全不知道",
+    "reason": "裸 except 把所有错误都吞了，调试时完全没线索。至少要打印异常：except Exception as e: print(e)。",
+    "fix": "except Exception as e: print(f\"出错: {e}\")"
+  }
+]

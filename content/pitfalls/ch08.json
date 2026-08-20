@@ -1,0 +1,37 @@
+[
+  {
+    "title": "input返回的是字符串",
+    "code": "age = input(\"年龄: \")\nif age > 18:",
+    "error": "TypeError: '>' not supported between instances of 'str' and 'int'",
+    "reason": "input() 永远返回字符串，哪怕用户输入的是数字。比较前要 int() 转换。",
+    "fix": "age = int(input(\"年龄: \"))"
+  },
+  {
+    "title": "while True 没出口",
+    "code": "while True:\n    # 处理...\n    # 忘了break",
+    "error": "程序永远不结束",
+    "reason": "while True 必须有 break 或者能退出循环的语句，否则死循环。",
+    "fix": "满足条件时写 break"
+  },
+  {
+    "title": "enumerate忘记起始值",
+    "code": "for i, t in enumerate(todos):\n    print(f\"{i}. {t}\")",
+    "error": "编号从0开始：0. xxx",
+    "reason": "enumerate 默认从0开始。想从1开始要 enumerate(todos, 1)。",
+    "fix": "enumerate(todos, 1)"
+  },
+  {
+    "title": "pop删除不存在的键",
+    "code": "contacts.pop(\"不存在的人\")",
+    "error": "KeyError",
+    "reason": "pop 不存在的键会抛 KeyError。用 pop(key, None) 给默认值就不会报错。",
+    "fix": "contacts.pop(\"不存在的人\", None)"
+  },
+  {
+    "title": "整数输入溢出",
+    "code": "guess = int(input(\"猜数字: \"))  # 用户输入 abc",
+    "error": "ValueError: invalid literal for int()",
+    "reason": "用户输入非数字时 int() 直接报错。项目里要用 try/except 包住。",
+    "fix": "try: guess = int(input(...)) except ValueError: print(\"请输入数字\")"
+  }
+]

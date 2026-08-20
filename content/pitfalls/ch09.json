@@ -1,0 +1,37 @@
+[
+  {
+    "title": "忘记timeout",
+    "code": "requests.get(url)  # 无timeout",
+    "error": "程序卡住不动（服务器不响应就永远等）",
+    "reason": "不设timeout的话，请求可能永远挂着。生产环境务必加 timeout。",
+    "fix": "requests.get(url, timeout=10)"
+  },
+  {
+    "title": "忽略状态码",
+    "code": "data = requests.get(url).json()  # 404时也会执行",
+    "error": "JSONDecodeError 或拿到错误数据",
+    "reason": "请求失败也会返回响应体。要检查 status_code 或 raise_for_status()。",
+    "fix": "resp.raise_for_status() 或 if resp.status_code == 200:"
+  },
+  {
+    "title": "JSON参数用错",
+    "code": "requests.post(url, data='{\"name\": \"白糖\"}')",
+    "error": "服务器收到的不是JSON",
+    "reason": "data= 是原始数据，json= 才是自动转JSON并设置Content-Type。用 requests.post(url, json=dict)。",
+    "fix": "requests.post(url, json={'name': '白糖'})"
+  },
+  {
+    "title": "忘记导入requests",
+    "code": "resp = requests.get(url)",
+    "error": "NameError: name 'requests' is not defined",
+    "reason": "requests 是第三方库，要先 import requests 并且 pip install requests。",
+    "fix": "import requests（先 pip install requests）"
+  },
+  {
+    "title": "嵌套JSON取值出错",
+    "code": "data['choices'][0]['message']['content']  # 实际结构不同",
+    "error": "KeyError 或 IndexError",
+    "reason": "不同API返回结构不同。先打印 resp.json() 看真实结构再取值。",
+    "fix": "先 print(resp.json()) 观察结构"
+  }
+]

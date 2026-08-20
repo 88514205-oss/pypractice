@@ -1,0 +1,47 @@
+[
+  {
+    "id": 1,
+    "title": "查看进程",
+    "description": "在Python里用 os 或 subprocess 模拟：打印一条提示告诉你用 ps aux 查看进程。打印\"用 ps aux 查看进程\"。",
+    "difficulty": 1,
+    "hint": "print(\"用 ps aux 查看进程\")",
+    "starter_code": "# 在这里写你的代码\n",
+    "expected_output": "用 ps aux 查看进程"
+  },
+  {
+    "id": 2,
+    "title": "创建目录",
+    "description": "用 os.makedirs 创建目录 data/logs/2026（用 exist_ok=True），然后打印\"目录创建完成\"。",
+    "difficulty": 1,
+    "hint": "os.makedirs(\"data/logs/2026\", exist_ok=True)",
+    "starter_code": "import os\n",
+    "expected_output": "目录创建完成"
+  },
+  {
+    "id": 3,
+    "title": "环境变量读取",
+    "description": "读取环境变量 PORT（用 os.environ.get 带默认值 8000），打印出来。",
+    "difficulty": 2,
+    "hint": "port = os.environ.get(\"PORT\", \"8000\")",
+    "starter_code": "import os\n",
+    "expected_output": "8000"
+  },
+  {
+    "id": 4,
+    "title": "路径拼接",
+    "description": "用 os.path.join 拼接 /opt/myapp + main.py，打印完整路径。",
+    "difficulty": 1,
+    "hint": "os.path.join(\"/opt/myapp\", \"main.py\")",
+    "starter_code": "import os\n",
+    "expected_output": "/opt/myapp/main.py"
+  },
+  {
+    "id": 5,
+    "title": "Dockerfile命令",
+    "description": "模拟思考：打印一条Dockerfile里用于安装依赖的命令。",
+    "difficulty": 1,
+    "hint": "RUN pip install -r requirements.txt",
+    "starter_code": "# 在这里写你的代码\n",
+    "expected_output": "RUN pip install -r requirements.txt"
+  }
+]

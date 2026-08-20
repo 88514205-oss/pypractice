@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+ <meta charset="UTF-8">
+ <meta name="viewport" content="width=device-width, initial-scale=1.0">
+ <title>自由工坊 - Python从print到GIL锁死</title>
+ <link rel="stylesheet" href="/static/css/style.css">
+ <link rel="stylesheet" href="/static/css/playground.css">
+ <link rel="stylesheet" href="/static/vendor/codemirror/codemirror.min.css">
+ <link rel="stylesheet" href="/static/vendor/codemirror/dracula.min.css">
+  <link rel="stylesheet" href="/static/vendor/codemirror/lint.min.css">
+</head>
+<body>
+ <header class="top-bar">
+  <div class="container">
+   <a class="back-link" href="/"> 返回目录</a>
+   <span class="top-title"> 自由工坊 · 随便写，AI审查</span>
+   <span id="pg-status" class="pg-status">就绪</span>
+  </div>
+ </header>
+
+ <main class="container playground-layout">
+  <section class="pg-editor">
+   <div class="pg-toolbar">
+    <button class="btn btn-run" id="btn-pg-run"> 运行</button>
+    <button class="btn btn-ai" id="btn-pg-review"> AI审查</button>
+    <button class="btn btn-save" id="btn-pg-save">存档</button>
+    <button class="btn" id="btn-pg-saves">我的存档</button>
+    <button class="btn" id="btn-pg-clear">清空</button>
+    <button class="btn" id="btn-pg-example">示例</button>
+   </div>
+   <textarea id="pg-code" spellcheck="false"># 自由工坊
+# 随便写点什么，点"运行"看结果，点"AI审查"让猫猫老师点评
+
+def fib(n):
+  if n <= 1:
+    return n
+  return fib(n-1) + fib(n-2)
+
+print([fib(i) for i in range(10)])
+</textarea>
+  </section>
+
+  <section class="pg-output-area">
+   <div class="pg-panel">
+    <div class="pg-panel-header">运行输出</div>
+    <pre class="pg-output" id="pg-output">点击"运行"执行代码</pre>
+   </div>
+   <div class="pg-panel">
+    <div class="pg-panel-header"> 猫猫老师审查结果</div>
+    <div class="pg-review" id="pg-review">点"AI审查"让猫猫老师看看你的代码。需要先配置API Key（首页底部）</div>
+   </div>
+  </section>
+ </main>
+
+
+  <div class="modal-mask" id="pg-saves-modal" style="display:none">
+    <div class="modal">
+      <h2>我的存档</h2>
+      <p class="modal-tip">手动保存的代码（最多保留30条），关闭页面不丢失</p>
+      <div id="pg-saves-list" class="saves-list"></div>
+      <div class="modal-actions">
+        <button class="btn" id="btn-pg-saves-close">关闭</button>
+        <button class="btn btn-danger" id="btn-pg-saves-clear">清空全部</button>
+      </div>
+    </div>
+  </div>
+
+ <script src="/static/vendor/codemirror/codemirror.min.js"></script>
+ <script src="/static/vendor/codemirror/python.min.js"></script>
+ <script src="/static/vendor/codemirror/matchbrackets.min.js"></script>
+ <script src="/static/vendor/codemirror/closebrackets.min.js"></script>
+  <script src="/static/vendor/codemirror/lint.min.js"></script>
+  <script src="/static/js/codekit.js"></script>
+  <script src="/static/pyodide/pyodide.js"></script>
+ <script src="/static/js/playground.js"></script>
+</body>
+</html>

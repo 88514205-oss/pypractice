@@ -1,0 +1,56 @@
+[
+  {
+    "id": 1,
+    "title": "连接数据库",
+    "description": "用 sqlite3.connect 连接 test.db，创建 users 表（id自增、name文本），提交并关闭。打印\"建表完成\"。",
+    "difficulty": 1,
+    "hint": "sqlite3.connect('test.db') + cur.execute + conn.commit()",
+    "starter_code": "import sqlite3\n",
+    "expected_output": "建表完成"
+  },
+  {
+    "id": 2,
+    "title": "插入数据",
+    "description": "连接 test.db，向 users 表插入 ('白糖', 16)，提交后打印\"插入成功\"。",
+    "difficulty": 1,
+    "hint": "cur.execute(\"INSERT INTO users (name, age) VALUES (?, ?)\", ('白糖', 16))",
+    "starter_code": "import sqlite3\nconn = sqlite3.connect('test.db')\ncur = conn.cursor()\ncur.execute(\"CREATE TABLE IF NOT EXISTS users (id INTEGER PRIMARY KEY, name TEXT, age INTEGER)\")\n",
+    "expected_output": "插入成功"
+  },
+  {
+    "id": 3,
+    "title": "查询全部",
+    "description": "先插入两条数据，然后 SELECT * FROM users 用 fetchall() 获取并打印。",
+    "difficulty": 1,
+    "hint": "cur.execute(\"SELECT * FROM users\"); print(cur.fetchall())",
+    "starter_code": "import sqlite3\nconn = sqlite3.connect('test.db')\ncur = conn.cursor()\ncur.execute(\"CREATE TABLE IF NOT EXISTS users (id INTEGER PRIMARY KEY, name TEXT, age INTEGER)\")\n",
+    "expected_output": "包含两条记录的列表"
+  },
+  {
+    "id": 4,
+    "title": "条件查询",
+    "description": "插入 ('白糖', 16) 和 ('红糖', 14)，查询 age > 15 的人名并打印（应该只有白糖）。",
+    "difficulty": 2,
+    "hint": "WHERE age > 15",
+    "starter_code": "import sqlite3\nconn = sqlite3.connect('test.db')\ncur = conn.cursor()\ncur.execute(\"CREATE TABLE IF NOT EXISTS users (id INTEGER PRIMARY KEY, name TEXT, age INTEGER)\")\n",
+    "expected_output": "[('白糖', 16)]"
+  },
+  {
+    "id": 5,
+    "title": "参数化插入",
+    "description": "用户输入（这里用变量 name='白糖', age=16 模拟），用 ? 占位符参数化插入，然后查询确认。",
+    "difficulty": 2,
+    "hint": "cur.execute(\"INSERT INTO users (name, age) VALUES (?, ?)\", (name, age))",
+    "starter_code": "import sqlite3\nconn = sqlite3.connect('test.db')\ncur = conn.cursor()\ncur.execute(\"CREATE TABLE IF NOT EXISTS users (id INTEGER PRIMARY KEY, name TEXT, age INTEGER)\")\nname = '白糖'\nage = 16\n",
+    "expected_output": "插入成功"
+  },
+  {
+    "id": 6,
+    "title": "更新数据",
+    "description": "插入 ('白糖', 16)，然后 UPDATE 把白糖的 age 改成 17，查询打印结果确认。",
+    "difficulty": 2,
+    "hint": "UPDATE users SET age = 17 WHERE name = '白糖'",
+    "starter_code": "import sqlite3\nconn = sqlite3.connect('test.db')\ncur = conn.cursor()\ncur.execute(\"CREATE TABLE IF NOT EXISTS users (id INTEGER PRIMARY KEY, name TEXT, age INTEGER)\")\n",
+    "expected_output": "17"
+  }
+]

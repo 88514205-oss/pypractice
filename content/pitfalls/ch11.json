@@ -1,0 +1,37 @@
+[
+  {
+    "title": "忘写装饰器",
+    "code": "def home(): return {\"ok\": True}  # 没写@app.get",
+    "error": "接口404，访问不到",
+    "reason": "函数要挂 @app.get(\"/path\") 装饰器才会被FastAPI注册成接口。",
+    "fix": "@app.get(\"/\")\ndef home():"
+  },
+  {
+    "title": "路径参数类型错误",
+    "code": "@app.get(\"/user/{id}\")\ndef get(id: int): ...\n# 访问 /user/abc",
+    "error": "422 Unprocessable Entity",
+    "reason": "类型注解 int 会强制校验，abc 不是整数直接422。这是FastAPI的自动校验，不是bug。",
+    "fix": "前端传数字，或改成 str 类型"
+  },
+  {
+    "title": "忘了安装uvicorn",
+    "code": "uvicorn main:app --reload",
+    "error": "bash: uvicorn: command not found",
+    "reason": "uvicorn 是ASGI服务器，要 pip install uvicorn。fastapi本身不带服务器。",
+    "fix": "pip install uvicorn"
+  },
+  {
+    "title": "host绑错",
+    "code": "uvicorn main:app  # 默认127.0.0.1",
+    "error": "局域网其他设备访问不到",
+    "reason": "默认只监听本机。要让别人访问要 uvicorn main:app --host 0.0.0.0。",
+    "fix": "uvicorn main:app --host 0.0.0.0"
+  },
+  {
+    "title": "POST请求没带JSON头",
+    "code": "requests.post(url, data={\"msg\": \"hi\"})",
+    "error": "FastAPI返回422或拿不到数据",
+    "reason": "pydantic模型要JSON，用 json= 而不是 data=。data=会变成form表单。",
+    "fix": "requests.post(url, json={\"msg\": \"hi\"})"
+  }
+]

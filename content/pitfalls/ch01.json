@@ -1,0 +1,37 @@
+[
+  {
+    "title": "字符串和数字相加",
+    "code": "\"结果\" + 3",
+    "error": "TypeError: can only concatenate str (not \"int\") to str",
+    "reason": "字符串不能直接和数字用 + 拼接，需要先 str(3) 转成字符串。",
+    "fix": "\"结果\" + str(3)"
+  },
+  {
+    "title": "变量名以数字开头",
+    "code": "1name = \"白糖\"",
+    "error": "SyntaxError: invalid syntax",
+    "reason": "变量名不能以数字开头。",
+    "fix": "name1 = \"白糖\""
+  },
+  {
+    "title": "忘了引号",
+    "code": "print(你好)",
+    "error": "NameError: name '你好' is not defined",
+    "reason": "文本内容必须用引号包起来，否则 Python 会把它当成变量名去找。",
+    "fix": "print(\"你好\")"
+  },
+  {
+    "title": "括号没配对",
+    "code": "print(\"你好\"",
+    "error": "SyntaxError: '(' was never closed",
+    "reason": "括号有开头没结尾，Python 无法解析。",
+    "fix": "print(\"你好\")"
+  },
+  {
+    "title": "缩进恐惧症",
+    "code": "if True:\nprint(\"hi\")",
+    "error": "IndentationError: expected an indented block",
+    "reason": "Python 用缩进表示代码块，if 下面的代码要缩进（这个坑会在第3章详细讲，先记住）。",
+    "fix": "if True:\n    print(\"hi\")"
+  }
+]

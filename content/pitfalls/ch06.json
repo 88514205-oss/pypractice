@@ -1,0 +1,37 @@
+[
+  {
+    "title": "忘写self",
+    "code": "class Cat:\n    def meow():\n        print(\"喵\")",
+    "error": "TypeError: meow() takes 0 positional arguments but 1 was given",
+    "reason": "实例方法第一个参数必须是 self（代表对象自己）。调用 cat.meow() 时Python会自动把cat传进去。",
+    "fix": "def meow(self):"
+  },
+  {
+    "title": "__init__拼错",
+    "code": "class Cat:\n    def __init__(self, name):\n        self.name = name",
+    "error": "AttributeError: 'Cat' object has no attribute 'name'",
+    "reason": "__init__ 是双下划线！写成 _init_ 或 _init__ 就不会被自动调用，self.name 也没被赋值。",
+    "fix": "def __init__(self, name):"
+  },
+  {
+    "title": "忘了return self.count",
+    "code": "def add(self):\n    self.count += 1",
+    "error": "调用 add() 返回 None",
+    "reason": "方法里修改了属性但没有 return，调用者拿不到新值。",
+    "fix": "return self.count"
+  },
+  {
+    "title": "类名小写",
+    "code": "class cat: ...",
+    "error": "能运行但不符合规范",
+    "reason": "PEP8规范类名用大驼峰（Cat、BankAccount），小写虽然能跑但可读性差，别人看着像变量。",
+    "fix": "class Cat:"
+  },
+  {
+    "title": "创建对象忘加括号",
+    "code": "cat = Cat  # 忘写 ()",
+    "error": "cat 是类本身而不是对象",
+    "reason": "Cat 是类，Cat() 才是创建对象。忘加括号导致后续 cat.meow() 报错。",
+    "fix": "cat = Cat()"
+  }
+]

@@ -1,0 +1,14 @@
+# 敏感配置（含API Key）
+config.json
+
+# Python
+venv/
+__pycache__/
+*.pyc
+
+# 数据/进度
+data/
+
+# 系统
+.DS_Store
+*.log

@@ -1,0 +1,37 @@
+[
+  {
+    "title": "忘记冒号",
+    "code": "if score > 60\n    print(\"及格\")",
+    "error": "SyntaxError: expected ':'",
+    "reason": "if / for / while / def 后面必须有冒号 : 才能开始代码块。这是Python和很多语言不一样的地方。",
+    "fix": "if score > 60:"
+  },
+  {
+    "title": "缩进不统一",
+    "code": "if True:\n    print(\"a\")\n  print(\"b\")",
+    "error": "IndentationError: unindent does not match any outer indentation level",
+    "reason": "同一个代码块的缩进必须一致，不能一会儿4空格一会儿2空格。建议编辑器里把Tab自动转成4空格。",
+    "fix": "保证同一个代码块缩进相同"
+  },
+  {
+    "title": "单等号当判断用",
+    "code": "if score = 85:",
+    "error": "SyntaxError: cannot assign to literal",
+    "reason": "= 是赋值，== 才是比较相等。判断用双等号。",
+    "fix": "if score == 85:"
+  },
+  {
+    "title": "while死循环",
+    "code": "count = 0\nwhile count < 5:\n    print(count)  # 忘记 count += 1",
+    "error": "程序永远不结束（卡死）",
+    "reason": "while 循环里一定要有让条件最终变为False的语句，否则永远循环。",
+    "fix": "循环体里加 count += 1"
+  },
+  {
+    "title": "range范围搞错",
+    "code": "for i in range(3):  # 想打印1,2,3",
+    "error": "实际打印 0,1,2",
+    "reason": "range(n) 从0开始到n-1。想要1~3要用 range(1, 4)。",
+    "fix": "range(1, 4)"
+  }
+]

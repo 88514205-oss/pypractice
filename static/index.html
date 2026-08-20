@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+ <meta charset="UTF-8">
+ <meta name="viewport" content="width=device-width, initial-scale=1.0">
+ <title>Python从print到GIL锁死</title>
+ <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+ <header class="site-header">
+  <div class="container">
+   <h1 class="logo">Python从print到GIL锁死</h1>
+   <p class="subtitle">本地部署的Python自学平台 · 从第一行代码到并发成魔</p>
+   <div class="stats-bar" id="stats-bar"></div>
+   <div style="margin-top:12px">
+    <a class="workshop-link" href="/playground">自由工坊（不带题，随便写+AI审查）</a>
+   </div>
+  </div>
+ </header>
+
+ <main class="container">
+  <section id="chapter-list" class="chapter-list">
+   <p class="loading">加载章节中...</p>
+  </section>
+ </main>
+
+ <footer class="site-footer">
+  <div class="container">
+   <p>开源项目 · 本地部署 · 你的代码只在你浏览器里运行 · <a href="#" id="open-config">AI配置</a></p>
+  </div>
+ </footer>
+
+ <div class="modal-mask" id="config-modal" style="display:none">
+  <div class="modal">
+   <h2>猫猫老师配置</h2>
+   <p class="modal-tip">在下面填入你的 DeepSeek API Key，猫猫老师就能上线了。<br>
+    Key 只保存在你本机的 <code>config.json</code> 里，不会上传到任何地方。</p>
+   <label>DeepSeek API Key</label>
+   <input type="password" id="cfg-key" placeholder="sk-..." autocomplete="off">
+   <label>模型（可选，默认 deepseek-chat）</label>
+   <input type="text" id="cfg-model" placeholder="deepseek-chat">
+   <div class="modal-actions">
+    <button class="btn btn-ai" id="btn-cfg-save">保存</button>
+    <button class="btn" id="btn-cfg-cancel">取消</button>
+   </div>
+   <p class="modal-msg" id="cfg-msg"></p>
+   <p class="modal-tip">没有Key？去 <a href="https://platform.deepseek.com" target="_blank">platform.deepseek.com</a> 注册获取（很便宜）</p>
+  </div>
+ </div>
+
+ <script src="/static/js/main.js"></script>
+</body>
+</html>

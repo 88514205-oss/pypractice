@@ -1,0 +1,198 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
+  background: #f5f7fa;
+  color: #2d3436;
+  line-height: 1.6;
+}
+
+.container {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+.site-header {
+  background: linear-gradient(135deg, #306998 0%, #3776ab 50%, #ffd43b 100%);
+  color: #fff;
+  padding: 40px 0 30px;
+  text-align: center;
+}
+
+.logo {
+  font-size: 2rem;
+  margin-bottom: 8px;
+}
+
+.subtitle {
+  opacity: 0.9;
+  font-size: 0.95rem;
+}
+
+.workshop-link {
+  display: inline-block;
+  margin-top: 12px;
+  background: rgba(255, 255, 255, 0.18);
+  color: #fff;
+  padding: 8px 20px;
+  border-radius: 20px;
+  text-decoration: none;
+  font-size: 0.9rem;
+  transition: background 0.15s;
+}
+
+.workshop-link:hover {
+  background: rgba(255, 255, 255, 0.3);
+}
+
+.stats-bar {
+  margin-top: 16px;
+  font-size: 0.9rem;
+  background: rgba(255, 255, 255, 0.15);
+  display: inline-block;
+  padding: 6px 20px;
+  border-radius: 20px;
+}
+
+main {
+  padding: 30px 0 60px;
+}
+
+.chapter-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 16px;
+}
+
+.chapter-card {
+  background: #fff;
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+  cursor: pointer;
+  transition: transform 0.15s, box-shadow 0.15s;
+  border: 2px solid transparent;
+}
+
+.chapter-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+}
+
+.chapter-card.done {
+  border-color: #27ae60;
+}
+
+.chapter-card.current {
+  border-color: #ffd43b;
+}
+
+.chapter-num {
+  font-size: 0.8rem;
+  color: #3776ab;
+  font-weight: 600;
+  letter-spacing: 1px;
+}
+
+.chapter-title {
+  font-size: 1.15rem;
+  font-weight: 600;
+  margin: 6px 0;
+}
+
+.chapter-desc {
+  font-size: 0.85rem;
+  color: #636e72;
+}
+
+.chapter-progress {
+  margin-top: 10px;
+  font-size: 0.8rem;
+  color: #b2bec3;
+}
+
+.site-footer {
+  text-align: center;
+  padding: 20px 0;
+  color: #b2bec3;
+  font-size: 0.85rem;
+}
+
+.loading {
+  color: #b2bec3;
+  text-align: center;
+  padding: 40px;
+}
+
+.modal-mask {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 100;
+}
+
+.modal {
+  background: #fff;
+  border-radius: 14px;
+  padding: 24px 28px;
+  width: 90%;
+  max-width: 440px;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+}
+
+.modal h2 {
+  margin-bottom: 10px;
+  font-size: 1.2rem;
+}
+
+.modal label {
+  display: block;
+  margin: 12px 0 4px;
+  font-size: 0.85rem;
+  color: #636e72;
+}
+
+.modal input {
+  width: 100%;
+  padding: 8px 12px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  font-size: 0.95rem;
+  outline: none;
+}
+
+.modal input:focus {
+  border-color: #3776ab;
+}
+
+.modal-actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 16px;
+}
+
+.modal-msg {
+  margin-top: 10px;
+  font-size: 0.85rem;
+  color: #27ae60;
+}
+
+.modal-tip {
+  font-size: 0.8rem;
+  color: #b2bec3;
+  margin: 8px 0;
+}
+
+.modal-tip code {
+  background: #f0f0f0;
+  padding: 1px 5px;
+  border-radius: 4px;
+}

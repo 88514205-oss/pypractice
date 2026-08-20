@@ -1,0 +1,140 @@
+.top-bar {
+  background: #306998;
+  color: #fff;
+  padding: 14px 0;
+}
+
+.top-bar .container {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.back-link {
+  color: #ffd43b;
+  text-decoration: none;
+  font-size: 0.9rem;
+}
+
+.top-title {
+  font-weight: 600;
+}
+
+.chapter-layout {
+  display: grid;
+  grid-template-columns: 1fr 300px;
+  gap: 24px;
+  padding-top: 24px;
+}
+
+.chapter-content {
+  background: #fff;
+  border-radius: 12px;
+  padding: 28px 32px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+}
+
+.chapter-content h1 {
+  font-size: 1.7rem;
+  border-bottom: 2px solid #f0f0f0;
+  padding-bottom: 10px;
+  margin-bottom: 16px;
+}
+
+.chapter-content h2 {
+  font-size: 1.3rem;
+  margin: 24px 0 10px;
+  color: #306998;
+}
+
+.chapter-content h3 {
+  font-size: 1.1rem;
+  margin: 18px 0 8px;
+}
+
+.chapter-content p {
+  margin: 8px 0;
+}
+
+.chapter-content ul, .chapter-content ol {
+  margin: 8px 0 8px 24px;
+}
+
+.chapter-content blockquote {
+  border-left: 4px solid #ffd43b;
+  background: #fffbe6;
+  padding: 8px 14px;
+  margin: 10px 0;
+  border-radius: 0 6px 6px 0;
+}
+
+.chapter-content code {
+  background: #f0f0f0;
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-family: "JetBrains Mono", Consolas, monospace;
+  font-size: 0.9em;
+}
+
+.chapter-content .code-block {
+  background: #1e1e2e;
+  color: #cdd6f4;
+  padding: 14px 18px;
+  border-radius: 8px;
+  overflow-x: auto;
+  margin: 12px 0;
+}
+
+.chapter-content .code-block code {
+  background: none;
+  padding: 0;
+  color: inherit;
+}
+
+.chapter-side {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.side-block {
+  background: #fff;
+  border-radius: 12px;
+  padding: 16px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+}
+
+.side-block h3 {
+  font-size: 1rem;
+  margin-bottom: 10px;
+  color: #306998;
+}
+
+.side-list {
+  list-style: none;
+  font-size: 0.88rem;
+}
+
+.side-list li {
+  padding: 6px 0;
+  border-bottom: 1px solid #f5f5f5;
+}
+
+.side-list a {
+  color: #2d3436;
+  text-decoration: none;
+}
+
+.side-list a:hover {
+  color: #306998;
+}
+
+.diff {
+  color: #ffd43b;
+  font-size: 0.75rem;
+  margin-left: 6px;
+}
+
+.pitfall-item {
+  cursor: help;
+}

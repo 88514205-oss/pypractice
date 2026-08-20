@@ -1,0 +1,37 @@
+[
+  {
+    "title": "import位置错误",
+    "code": "print(random.randint(1,10))\nimport random",
+    "error": "NameError: name 'random' is not defined",
+    "reason": "import 要写在用之前。Python从上往下执行，先执行print时random还没导入。习惯把import放文件顶部。",
+    "fix": "import random 放最前面"
+  },
+  {
+    "title": "模块名打错",
+    "code": "import ramdom",
+    "error": "ModuleNotFoundError: No module named 'ramdom'",
+    "reason": "random 拼成了 ramdom，Python找不到这个模块。注意拼写。",
+    "fix": "import random"
+  },
+  {
+    "title": "第三方库没装",
+    "code": "import requests",
+    "error": "ModuleNotFoundError: No module named 'requests'",
+    "reason": "requests 是第三方库，不是标准库。要先 pip install requests。标准库（random/os/json/time）不用装。",
+    "fix": "pip install requests"
+  },
+  {
+    "title": "json.dumps中文乱码",
+    "code": "json.dumps({\"name\": \"白糖\"})",
+    "error": "输出 {\"name\": \"\\u767d\\u7cd6\"}",
+    "reason": "默认会把非ASCII字符转成\\u转义序列。加 ensure_ascii=False 保留中文。",
+    "fix": "json.dumps(data, ensure_ascii=False)"
+  },
+  {
+    "title": "random.shuffle返回值",
+    "code": "result = random.shuffle(mylist)\nprint(result)",
+    "error": "打印 None",
+    "reason": "shuffle 是原地打乱，直接改原列表，不返回新列表。打乱后打印 mylist 本身。",
+    "fix": "random.shuffle(mylist); print(mylist)"
+  }
+]

@@ -1,0 +1,65 @@
+[
+  {
+    "id": 1,
+    "title": "随机整数",
+    "description": "import random，用 randint 生成并打印一个 1~10 的随机整数。",
+    "difficulty": 1,
+    "hint": "random.randint(1, 10)",
+    "starter_code": "import random\n",
+    "expected_output": "1到10之间的一个整数"
+  },
+  {
+    "id": 2,
+    "title": "随机选一个",
+    "description": "列表 foods = ['披萨', '汉堡', '寿司']，用 random.choice 随机选一个打印。",
+    "difficulty": 1,
+    "hint": "random.choice(foods)",
+    "starter_code": "import random\nfoods = ['披萨', '汉堡', '寿司']\n",
+    "expected_output": "披萨/汉堡/寿司之一"
+  },
+  {
+    "id": 3,
+    "title": "JSON转换",
+    "description": "data = {'name': '白糖', 'level': 5}，用 json.dumps 转成字符串打印。",
+    "difficulty": 1,
+    "hint": "json.dumps(data, ensure_ascii=False)",
+    "starter_code": "import json\ndata = {'name': '白糖', 'level': 5}\n",
+    "expected_output": "{\"name\": \"白糖\", \"level\": 5}"
+  },
+  {
+    "id": 4,
+    "title": "判断文件存在",
+    "description": "用 os.path.exists 判断 'test.txt' 是否存在，打印结果。",
+    "difficulty": 1,
+    "hint": "print(os.path.exists('test.txt'))",
+    "starter_code": "import os\n",
+    "expected_output": "False"
+  },
+  {
+    "id": 5,
+    "title": "睡眠",
+    "description": "打印\"开始\"，time.sleep(1)，再打印\"结束\"。",
+    "difficulty": 1,
+    "hint": "time.sleep(1)",
+    "starter_code": "import time\n",
+    "expected_output": "开始\n结束"
+  },
+  {
+    "id": 6,
+    "title": "随机密码生成器",
+    "description": "从字符串 'abcdefghijklmnopqrstuvwxyz0123456789' 里随机选8个字符拼成密码，打印出来。",
+    "difficulty": 2,
+    "hint": "''.join(random.choice(chars) for _ in range(8))",
+    "starter_code": "import random\nchars = 'abcdefghijklmnopqrstuvwxyz0123456789'\n",
+    "expected_output": "8位随机字符串"
+  },
+  {
+    "id": 7,
+    "title": "时间戳",
+    "description": "打印当前时间戳 int(time.time()) 除以 3600 再取整（即小时数），看看是不是大约几十万。",
+    "difficulty": 2,
+    "hint": "print(int(time.time()) // 3600)",
+    "starter_code": "import time\n",
+    "expected_output": "一个很大的整数"
+  }
+]

@@ -1,0 +1,74 @@
+[
+  {
+    "id": 1,
+    "title": "第一个函数",
+    "description": "定义函数 say_hello()，打印\"Hello, Python!\"。然后调用它。",
+    "difficulty": 1,
+    "hint": "def say_hello(): print(\"Hello, Python!\")",
+    "starter_code": "# 在这里写你的代码\n",
+    "expected_output": "Hello, Python!"
+  },
+  {
+    "id": 2,
+    "title": "带参数的函数",
+    "description": "定义函数 greet(name)，返回 f\"你好，{name}！\"。调用 greet(\"白糖\") 并打印结果。",
+    "difficulty": 1,
+    "hint": "def greet(name): return f\"你好，{name}！\"",
+    "starter_code": "# 在这里写你的代码\n",
+    "expected_output": "你好，白糖！"
+  },
+  {
+    "id": 3,
+    "title": "两数相加",
+    "description": "定义函数 add(a, b) 返回 a + b，调用 add(10, 20) 打印结果。",
+    "difficulty": 1,
+    "hint": "def add(a, b): return a + b",
+    "starter_code": "# 在这里写你的代码\n",
+    "expected_output": "30"
+  },
+  {
+    "id": 4,
+    "title": "默认参数",
+    "description": "定义函数 greet(name=\"游客\")，先调用 greet()，再调用 greet(\"白糖\")，分别打印结果。",
+    "difficulty": 2,
+    "hint": "参数设置默认值",
+    "starter_code": "# 在这里写你的代码\n",
+    "expected_output": "你好，游客！\n你好，白糖！"
+  },
+  {
+    "id": 5,
+    "title": "判断奇偶函数",
+    "description": "定义函数 is_even(n)，偶数返回 True，奇数返回 False。调用 is_even(4) 和 is_even(7) 打印结果。",
+    "difficulty": 2,
+    "hint": "return n % 2 == 0",
+    "starter_code": "# 在这里写你的代码\n",
+    "expected_output": "True\nFalse"
+  },
+  {
+    "id": 6,
+    "title": "最大值函数",
+    "description": "定义函数 my_max(a, b, c) 返回三个数中最大的。调用 my_max(7, 3, 9) 打印结果。",
+    "difficulty": 3,
+    "hint": "可以用 max() 内置函数，或者自己写 if 比较",
+    "starter_code": "# 在这里写你的代码\n",
+    "expected_output": "9"
+  },
+  {
+    "id": 7,
+    "title": "多返回值",
+    "description": "定义函数 divmod2(a, b) 返回 (a//b, a%b) 两个值。调用 divmod2(17, 5) 解包打印商和余数。",
+    "difficulty": 3,
+    "hint": "return a // b, a % b",
+    "starter_code": "# 在这里写你的代码\n",
+    "expected_output": "3\n2"
+  },
+  {
+    "id": 8,
+    "title": "累加器函数",
+    "description": "定义函数 sum_range(n)，用循环计算 1+2+...+n 并返回。调用 sum_range(10) 打印结果。",
+    "difficulty": 3,
+    "hint": "total = 0; for i in range(1, n+1): total += i",
+    "starter_code": "# 在这里写你的代码\n",
+    "expected_output": "55"
+  }
+]

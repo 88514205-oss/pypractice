@@ -1,0 +1,74 @@
+[
+  {
+    "id": 1,
+    "title": "创建猫类",
+    "description": "定义 Cat 类，__init__ 接收 name，方法 meow() 打印 f\"{name}: 喵~\"。创建 cat = Cat(\"白糖\") 并调用 meow()。",
+    "difficulty": 1,
+    "hint": "class Cat: def __init__(self, name): self.name = name",
+    "starter_code": "# 在这里写你的代码\n",
+    "expected_output": "白糖: 喵~"
+  },
+  {
+    "id": 2,
+    "title": "狗叫",
+    "description": "定义 Dog 类，__init__ 接收 name，方法 bark() 打印 f\"{name}: 汪汪！\"。创建并调用。",
+    "difficulty": 1,
+    "hint": "方法里用 self.name",
+    "starter_code": "# 在这里写你的代码\n",
+    "expected_output": "旺财: 汪汪！"
+  },
+  {
+    "id": 3,
+    "title": "学生类",
+    "description": "定义 Student 类，__init__ 接收 name 和 score，方法 grade() 返回\"及格\"（>=60）或\"不及格\"。创建 s = Student(\"白糖\", 85) 打印 s.grade()。",
+    "difficulty": 2,
+    "hint": "return \"及格\" if self.score >= 60 else \"不及格\"",
+    "starter_code": "# 在这里写你的代码\n",
+    "expected_output": "及格"
+  },
+  {
+    "id": 4,
+    "title": "矩形类",
+    "description": "定义 Rectangle 类，__init__ 接收 width 和 height，方法 area() 返回面积。创建 r = Rectangle(4, 5) 打印 r.area()。",
+    "difficulty": 2,
+    "hint": "return self.width * self.height",
+    "starter_code": "# 在这里写你的代码\n",
+    "expected_output": "20"
+  },
+  {
+    "id": 5,
+    "title": "继承",
+    "description": "定义 Animal 类（speak 打印\"...\"）和 Dog 类（继承 Animal，重写 speak 打印\"汪汪\"）。创建 Dog 对象并调用 speak()。",
+    "difficulty": 2,
+    "hint": "class Dog(Animal):",
+    "starter_code": "# 在这里写你的代码\n",
+    "expected_output": "汪汪"
+  },
+  {
+    "id": 6,
+    "title": "计数器类",
+    "description": "定义 Counter 类，__init__ 里 count = 0，方法 add() 让 count += 1 并返回新值。调用三次 add()，每次打印结果。",
+    "difficulty": 2,
+    "hint": "def add(self): self.count += 1; return self.count",
+    "starter_code": "# 在这里写你的代码\n",
+    "expected_output": "1\n2\n3"
+  },
+  {
+    "id": 7,
+    "title": "魔法方法__str__",
+    "description": "定义 Point 类（x, y），实现 __str__ 返回 f\"Point({x}, {y})\"。创建 Point(2, 3) 直接打印。",
+    "difficulty": 3,
+    "hint": "def __str__(self): return f\"Point({self.x}, {self.y})\"",
+    "starter_code": "# 在这里写你的代码\n",
+    "expected_output": "Point(2, 3)"
+  },
+  {
+    "id": 8,
+    "title": "银行账户类",
+    "description": "定义 BankAccount 类，__init__(balance=0)，方法 deposit(n) 加钱，withdraw(n) 减钱（余额不足返回\"余额不足\"）。存取几笔后打印余额。",
+    "difficulty": 3,
+    "hint": "self.balance += n / self.balance -= n",
+    "starter_code": "# 在这里写你的代码\n",
+    "expected_output": "120"
+  }
+]

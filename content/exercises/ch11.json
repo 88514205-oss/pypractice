@@ -1,0 +1,47 @@
+[
+  {
+    "id": 1,
+    "title": "第一个接口",
+    "description": "写一个 FastAPI 应用，GET / 返回 {\"message\": \"Hello\"}。",
+    "difficulty": 2,
+    "hint": "from fastapi import FastAPI; app = FastAPI(); @app.get(\"/\")",
+    "starter_code": "from fastapi import FastAPI\n\napp = FastAPI()\n\n",
+    "expected_output": "{\"message\": \"Hello\"}"
+  },
+  {
+    "id": 2,
+    "title": "路径参数",
+    "description": "GET /greet/{name} 返回 {\"hi\": name}。",
+    "difficulty": 2,
+    "hint": "@app.get(\"/greet/{name}\") def greet(name: str):",
+    "starter_code": "from fastapi import FastAPI\n\napp = FastAPI()\n\n",
+    "expected_output": "{\"hi\": \"白糖\"}"
+  },
+  {
+    "id": 3,
+    "title": "查询参数",
+    "description": "GET /add?a=3&b=5 返回 {\"sum\": 8}。参数用 a: int, b: int。",
+    "difficulty": 2,
+    "hint": "def add(a: int, b: int): return {\"sum\": a + b}",
+    "starter_code": "from fastapi import FastAPI\n\napp = FastAPI()\n\n",
+    "expected_output": "{\"sum\": 8}"
+  },
+  {
+    "id": 4,
+    "title": "POST接收JSON",
+    "description": "POST /echo 接收 {\"msg\": \"xxx\"} 返回 {\"got\": \"xxx\"}。用 pydantic BaseModel。",
+    "difficulty": 3,
+    "hint": "class Msg(BaseModel): msg: str",
+    "starter_code": "from fastapi import FastAPI\nfrom pydantic import BaseModel\n\napp = FastAPI()\n\n",
+    "expected_output": "{\"got\": \"你好\"}"
+  },
+  {
+    "id": 5,
+    "title": "年龄判断接口",
+    "description": "GET /age/{age} 判断：>=18 返回 {\"type\": \"adult\"}，否则 {\"type\": \"minor\"}。",
+    "difficulty": 2,
+    "hint": "if age >= 18:",
+    "starter_code": "from fastapi import FastAPI\n\napp = FastAPI()\n\n",
+    "expected_output": "{\"type\": \"adult\"}"
+  }
+]
